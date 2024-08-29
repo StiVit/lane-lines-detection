@@ -24,3 +24,83 @@ def list_images(images, cols = 2, rows = 5, cmap = None):
         plt.yticks([])
     plt.tight_layout(pad=0, h_pad=0, w_pad=0)
     plt.show()
+
+
+def RGB_color_selection(image):
+    # While color mask
+    lower_threshold = np.uint8([200,200,200])
+    upper_threshold = np.uint8([255,255,255])
+    white_mask = cv2.inRange(image, lower_threshold, upper_threshold)
+
+    # Yellow color mask
+    lower_threshold = np.uint8([175,175,0])
+    upper_threshold = np.uint8([255,255,255])
+    yellow_mask = cv2.inRange(image, lower_threshold, upper_threshold)
+
+    # Combine white and yellow masks
+    mask = cv2.bitwise_or(white_mask, yellow_mask)
+    masked_image = cv2.bitwise_and(image, image, mask = mask)
+    app_logger.info("Image successfully rbg-masked")
+
+    return masked_image
+
+
+def convert_hsv(image):
+    return cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+
+
+def HSV_color_selection(image):
+    converted_image = convert_hsv(image)
+
+    # While color mask
+    lower_threshold = np.uint8([0,0,210])
+    upper_threshold = np.uint8([255, 30, 255])
+    white_mask = cv2.inRange(converted_image, lower_threshold, upper_threshold)
+
+    # Yellow color mask
+    lower_threshold = np.uint8([18, 80, 80])
+    upper_threshold = np.uint8([30, 255, 255])
+    yellow_mask = cv2.inRange(converted_image, lower_threshold, upper_threshold)
+
+    # Combine white and yellow masks
+    mask = cv2.bitwise_or(white_mask, yellow_mask)
+    masked_image = cv2.bitwise_and(image, image, mask=mask)
+    app_logger.info("Image successfully hsv-masked")
+
+    return masked_image
+
+
+def convert_hsl(image):
+    return cv2.cvtColor(image, cv2.COLOR_RGB2HLS)
+
+
+def HSL_color_selection(image):
+    converted_image = convert_hsl(image)
+    # While color mask
+    lower_threshold = np.uint8([0, 200, 0])
+    upper_threshold = np.uint8([255, 255, 255])
+    white_mask = cv2.inRange(converted_image, lower_threshold, upper_threshold)
+
+    # Yellow color mask
+    lower_threshold = np.uint8([10, 0, 100])
+    upper_threshold = np.uint8([40, 255, 255])
+    yellow_mask = cv2.inRange(converted_image, lower_threshold, upper_threshold)
+
+    # Combine white and yellow masks
+    mask = cv2.bitwise_or(white_mask, yellow_mask)
+    masked_image = cv2.bitwise_and(image, image, mask=mask)
+    app_logger.info("Image successfully hsl-masked")
+
+    return masked_image
+
+
+
+if __name__ == "__main__":
+    test_images = [plt.imread(img) for img in glob.glob('test_images/*.jpg')]
+    # list_images(test_images)
+
+    # list_images(list(map(RGB_color_selection, test_images)))
+
+    # list_images(list(map(HSV_color_selection, test_images)))
+
+    list_images(list(map(HSL_color_selection, test_images)))
