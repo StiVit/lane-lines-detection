@@ -94,6 +94,14 @@ def HSL_color_selection(image):
     return masked_image
 
 
+def gray_scale(image):
+    return cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+
+def gaussian_smoothing(image, kernel_size = 13):
+    return cv2.GaussianBlur(image, (kernel_size, kernel_size), 0)
+
+def canny_detector(image, low_threshold = 50, high_threshold = 150):
+    return cv2.Canny(image, low_threshold, high_threshold)
 
 if __name__ == "__main__":
     test_images = [plt.imread(img) for img in glob.glob('test_images/*.jpg')]
@@ -103,4 +111,12 @@ if __name__ == "__main__":
 
     # list_images(list(map(HSV_color_selection, test_images)))
 
-    list_images(list(map(HSL_color_selection, test_images)))
+    # list_images(list(map(HSL_color_selection, test_images)))
+
+    color_selected_images = list(map(HSL_color_selection, test_images))
+    gray_images = list(map(gray_scale, color_selected_images))
+    blur_images = list(map(gaussian_smoothing, gray_images))
+    # list_images(blur_images)
+
+    edge_detected_images = list(map(canny_detector, blur_images))
+    list_images(edge_detected_images)
