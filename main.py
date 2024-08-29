@@ -24,3 +24,28 @@ def list_images(images, cols = 2, rows = 5, cmap = None):
         plt.yticks([])
     plt.tight_layout(pad=0, h_pad=0, w_pad=0)
     plt.show()
+
+test_images = [plt.imread(img) for img in glob.glob('test_images/*.jpg')]
+list_images(test_images)
+
+
+def RGB_color_selection(image):
+    # While color mask
+    lower_threshold = np.uint8([200,200,200])
+    upper_threshold = np.uint8([255,255,255])
+    white_mask = cv2.inRange(image, lower_threshold, upper_threshold)
+
+    # Yellow color mask
+    lower_threshold = np.uint8([175,175,0])
+    upper_threshold = np.uint8([255,255,255])
+    yellow_mask = cv2.inRange(image, lower_threshold, upper_threshold)
+
+    # Combine white and yellow masks
+    mask = cv2.bitwise_or(white_mask, yellow_mask)
+    masked_image = cv2.bitwise_and(image, image, mask = mask)
+
+    return masked_image
+
+
+list_images(list(map(RGB_color_selection, test_images)))
+
