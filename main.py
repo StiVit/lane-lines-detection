@@ -103,6 +103,24 @@ def gaussian_smoothing(image, kernel_size = 13):
 def canny_detector(image, low_threshold = 50, high_threshold = 150):
     return cv2.Canny(image, low_threshold, high_threshold)
 
+
+def region_selection(image):
+    mask = np.zeros_like(image)
+    if len(image.shape) > 2:
+        channel_count = image.shape[2]
+        ignore_mask_color = (255,) * channel_count
+    else:
+        ignore_mask_color = 255
+    rows,cols = image.shape[:2]
+    bottom_left = [cols * 0.1, rows * 0.95]
+    top_left = [cols * 0.4, rows * 0.6]
+    bottom_right = [cols * 0.9, rows * 0.95]
+    top_right = [cols * 0.6, rows * 0.6]
+    vertices = np.array([[bottom_left, top_left, top_right, bottom_right]], dtype=np.int32)
+    cv2.fillPoly(mask, vertices, ignore_mask_color)
+    masked_image = cv2.bitwise_and(image, mask)
+    return masked_image
+
 if __name__ == "__main__":
     test_images = [plt.imread(img) for img in glob.glob('test_images/*.jpg')]
     # list_images(test_images)
@@ -119,4 +137,7 @@ if __name__ == "__main__":
     # list_images(blur_images)
 
     edge_detected_images = list(map(canny_detector, blur_images))
-    list_images(edge_detected_images)
+    # list_images(edge_detected_images)
+
+    masked_image = list(map(region_selection, edge_detected_images))
+    list_images(masked_image)
