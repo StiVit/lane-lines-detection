@@ -40,7 +40,7 @@ def RGB_color_selection(image):
     # Combine white and yellow masks
     mask = cv2.bitwise_or(white_mask, yellow_mask)
     masked_image = cv2.bitwise_and(image, image, mask = mask)
-    app_logger.info("Image successfully rbg-masked")
+
 
     return masked_image
 
@@ -65,7 +65,6 @@ def HSV_color_selection(image):
     # Combine white and yellow masks
     mask = cv2.bitwise_or(white_mask, yellow_mask)
     masked_image = cv2.bitwise_and(image, image, mask=mask)
-    app_logger.info("Image successfully hsv-masked")
 
     return masked_image
 
@@ -89,7 +88,7 @@ def HSL_color_selection(image):
     # Combine white and yellow masks
     mask = cv2.bitwise_or(white_mask, yellow_mask)
     masked_image = cv2.bitwise_and(image, image, mask=mask)
-    app_logger.info("Image successfully hsl-masked")
+
 
     return masked_image
 
@@ -121,23 +120,41 @@ def region_selection(image):
     masked_image = cv2.bitwise_and(image, mask)
     return masked_image
 
+def hough_transform(image):
+    rho = 1
+    theta = np.pi/180
+    threshold = 20
+    minLineLength = 20
+    maxLineGap = 300
+    return cv2.HoughLinesP(image, rho=rho, theta=theta, threshold=threshold, minLineLength=minLineLength, maxLineGap=maxLineGap)
+
+
 if __name__ == "__main__":
     test_images = [plt.imread(img) for img in glob.glob('test_images/*.jpg')]
     # list_images(test_images)
 
     # list_images(list(map(RGB_color_selection, test_images)))
+    app_logger.info("Images successfully rbg-masked")
 
     # list_images(list(map(HSV_color_selection, test_images)))
+    app_logger.info("Images successfully hsv-masked")
 
     # list_images(list(map(HSL_color_selection, test_images)))
+    app_logger.info("Images successfully hsl-masked")
 
     color_selected_images = list(map(HSL_color_selection, test_images))
     gray_images = list(map(gray_scale, color_selected_images))
     blur_images = list(map(gaussian_smoothing, gray_images))
+    app_logger.info("Images successfully blurred")
     # list_images(blur_images)
 
+
     edge_detected_images = list(map(canny_detector, blur_images))
+    app_logger.info("Images' edges successfully detected")
     # list_images(edge_detected_images)
 
     masked_image = list(map(region_selection, edge_detected_images))
+    app_logger.info("region mask successfully applied")
     list_images(masked_image)
+
+    hough_lines = list(map(hough_transform, masked_image))
