@@ -129,6 +129,14 @@ def hough_transform(image):
     return cv2.HoughLinesP(image, rho=rho, theta=theta, threshold=threshold, minLineLength=minLineLength, maxLineGap=maxLineGap)
 
 
+def draw_lines(image, lines, color = [255, 0, 0], thickness = 2):
+    image = np.copy(image)
+    for line in lines:
+        for x1,y1,x2,y2 in line:
+            cv2.line(image, (x1,y1), (x2,y2), color, thickness)
+    return image
+
+
 if __name__ == "__main__":
     test_images = [plt.imread(img) for img in glob.glob('test_images/*.jpg')]
     # list_images(test_images)
@@ -155,6 +163,12 @@ if __name__ == "__main__":
 
     masked_image = list(map(region_selection, edge_detected_images))
     app_logger.info("region mask successfully applied")
-    list_images(masked_image)
+    # list_images(masked_image)
 
     hough_lines = list(map(hough_transform, masked_image))
+    app_logger.info("hough transformation successfully applied")
+    line_images = []
+    for image, lines in zip(test_images, hough_lines):
+        line_images.append(draw_lines(image, lines))
+    app_logger.info("Lines successfully drew")
+    list_images(line_images)
