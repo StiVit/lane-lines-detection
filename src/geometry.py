@@ -3,12 +3,12 @@ import numpy as np
 
 
 def hough_transform(image):
-    rho = 1
-    theta = np.pi / 180
-    threshold = 20
-    minLineLength = 20
-    maxLineGap = 300
-    return cv2.HoughLinesP(image, rho, theta, threshold, minLineLength, maxLineGap)
+    rho = 1  # Distance resolution of the accumulator in pixels.
+    theta = np.pi / 180  # Angle resolution of the accumulator in radians.
+    threshold = 20  # Only lines that are greater than threshold will be returned.
+    minLineLength = 20  # Line segments shorter than that are rejected.
+    maxLineGap = 300  # Maximum allowed gap between points on the same line to link them
+    return cv2.HoughLinesP(image, rho=rho, theta=theta, threshold=threshold, minLineLength=minLineLength, maxLineGap=maxLineGap)
 
 
 def draw_lines(image, lines, color=[255, 0, 0], thickness=2):
