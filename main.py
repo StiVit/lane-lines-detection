@@ -3,10 +3,8 @@
 from utils.logger_setup import setup_logger
 import logging
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import numpy as np
 import cv2
-import os
 import glob
 
 app_logger = setup_logger("app_logger", logging.INFO)
