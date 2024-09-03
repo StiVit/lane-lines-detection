@@ -66,6 +66,6 @@ This will load the images from the test_images directory, apply the lane detecti
 
 Contributions are welcome! Feel free to open an issue or submit a pull request. Please ensure that your code is well-structured and adheres to the existing coding style.
 
-## Licence
+## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
