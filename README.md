@@ -15,18 +15,18 @@ This project focuses on detecting lane lines on the road from images using vario
 
 LaneDetectionProject/ <br>
 │ <br>
-├── test_images/&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;# Directory containing test images <br>
+├── test_images/<br>
 │<br>
 ├── src/<br>
-│&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├── __init__.py&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;# Init file for the src module <br>
-│&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├── image_utils.py&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;# Utility functions for image handling and display <br>
-│&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├── color_selection.py&emsp;&emsp;&emsp;&emsp;&emsp;# Functions for color selection and masking<br>
-│&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├── edge_detection.py &emsp;&emsp;&emsp;# Edge detection methods<br>
-│&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├── geometry.py&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;# Setting the geometry for drawing the lines logic<br>
+│ ├── __init__.py<br>
+│ ├── image_utils.py<br>
+│ ├── color_selection.py<br>
+│ ├── edge_detection.py <br>
+│ ├── geometry.py<br>
 │<br>
-├── main.py&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;# Main entry point for the lane detection pipeline<br>
+├── main.py<br>
 │<br>
-└── README.md&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;# Project documentation<br>
+└── README.md<br>
 
 
 
